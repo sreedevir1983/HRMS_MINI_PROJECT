@@ -158,9 +158,13 @@ public class HRMS_MAIN : DriverSetup
         Thread.Sleep(1000);
 
         profupd.MyProfileUpdate();
-        Thread.Sleep(1000);
+        Thread.Sleep(2000);
 
+        Iss = (ITakesScreenshot)driver;
+        ss = Iss.GetScreenshot();
+        ss.SaveAsFile("C:\\Users\\srrajale\\source\\repos\\HRMS-MINI PROJECT\\HRMS-MINI PROJECT\\SCREENSHOTS\\6-ProfileUpdate.jpeg", ScreenshotImageFormat.Jpeg);
         Dashboardopen();
+
         Thread.Sleep(1000);
     }
 
