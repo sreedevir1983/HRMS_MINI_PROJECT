@@ -25,8 +25,8 @@ public class HRMS_MAIN : DriverSetup
     public Tickets_Handling tickethandle;
     public CoreHRMenu corehrobj;
 
-    public ITakesScreenshot Iss;
-    public Screenshot ss;
+    //public ITakesScreenshot Iss;
+    //public Screenshot ss;
 
     public string EmployeeName;
 
@@ -35,7 +35,8 @@ public class HRMS_MAIN : DriverSetup
     public void LaunchSite()
     {
         ReportsHandling();
-        OpenBrowser();        
+        OpenBrowser();
+        screensSetup();
     }
 
     //OneTimeTearDown -> Browser close and Reports close
@@ -50,16 +51,14 @@ public class HRMS_MAIN : DriverSetup
 
     //Test Case 1- Verify that the user can login the site using valid credentials.
     [Test, Order(1)]
-    public void TC1_AdminLogin()
+    public void TC1_HRMSLogin()
     {
         extTest = Extreport.CreateTest("Admin Login").Info("Login as Admin user");
 
         Adlogin=new HRMS_UserLogin(driver);
         Adlogin.UserLogin();
         Thread.Sleep(3000);
-
-        Iss = (ITakesScreenshot)driver;
-        ss=Iss.GetScreenshot();
+        screensSetup();
         ss.SaveAsFile("C:\\Users\\srrajale\\source\\repos\\HRMS-MINI PROJECT\\HRMS-MINI PROJECT\\SCREENSHOTS\\1-Dashboard1.jpeg",ScreenshotImageFormat.Jpeg);
 
         extTest.Log(Status.Info,"Logged in as Admin");
@@ -69,18 +68,25 @@ public class HRMS_MAIN : DriverSetup
 
     //Test Case 2- Verify the user can open the Employees page from Dashboard and Open the Employee report.
     [Test, Order(2)]
-    public void TC2_EmployeeDashboard()
+    public void TC2_HRMSDashboard()
     {
         extTest = Extreport.CreateTest("Employee Dashboard").Info("Go to Dashboard and Open Employee-> See reports");
 
         DEmp = new DashboardEmployee(driver);
         DEmp.EmployeeDash();
         DEmp.OpenReport();
+        Thread.Sleep(3000);
 
-        Iss = (ITakesScreenshot)driver;
-        ss = Iss.GetScreenshot();
+        EmployeeReportsChildWindow();
+        Thread.Sleep(2000);
+        DEmp.Reportwindowhandle();
+
+        screensSetup();
         ss.SaveAsFile("C:\\Users\\srrajale\\source\\repos\\HRMS-MINI PROJECT\\HRMS-MINI PROJECT\\SCREENSHOTS\\2-EMP_Report1.jpeg", ScreenshotImageFormat.Jpeg);
         Thread.Sleep(1000);
+
+        EmpReportBacktoParent();
+        Thread.Sleep(2000);
 
         Dashboardopen();
         Thread.Sleep(1000);
@@ -102,17 +108,13 @@ public class HRMS_MAIN : DriverSetup
 
         staffEmp.StaffEmployye();
         Thread.Sleep(1000);
-
-        Iss = (ITakesScreenshot)driver;
-        ss = Iss.GetScreenshot();
+        screensSetup();
         ss.SaveAsFile("C:\\Users\\srrajale\\source\\repos\\HRMS-MINI PROJECT\\HRMS-MINI PROJECT\\SCREENSHOTS\\3-StaffEmployee.jpeg", ScreenshotImageFormat.Jpeg);
         
         Thread.Sleep(1000);
         EmployeeName= staffEmp.AddNewEmployee();
         Thread.Sleep(1000);
-
-        Iss = (ITakesScreenshot)driver;
-        ss = Iss.GetScreenshot();
+        screensSetup();
         ss.SaveAsFile("C:\\Users\\srrajale\\source\\repos\\HRMS-MINI PROJECT\\HRMS-MINI PROJECT\\SCREENSHOTS\\4-NewEmployeeForm.jpeg", ScreenshotImageFormat.Jpeg);
 
         Dashboardopen();
@@ -159,9 +161,7 @@ public class HRMS_MAIN : DriverSetup
 
         profupd.MyProfileUpdate();
         Thread.Sleep(2000);
-
-        Iss = (ITakesScreenshot)driver;
-        ss = Iss.GetScreenshot();
+        screensSetup();
         ss.SaveAsFile("C:\\Users\\srrajale\\source\\repos\\HRMS-MINI PROJECT\\HRMS-MINI PROJECT\\SCREENSHOTS\\6-ProfileUpdate.jpeg", ScreenshotImageFormat.Jpeg);
         Dashboardopen();
 
@@ -170,32 +170,47 @@ public class HRMS_MAIN : DriverSetup
 
     //Test case 7 - Verify that the user can Add an award through CoreHR menu
     [Test, Order(7)]
-    public void TC7_CoreHRADD()
+    public void TC7_CoreHRAddAward()
     {
         extTest = Extreport.CreateTest("Add Award").Info("Core HR -> Add a new award");
         corehrobj =new CoreHRMenu(driver);
         corehrobj.AwardListRead();
         corehrobj.CoreHRAward();
+        Thread.Sleep(2000);
+        screensSetup();
+        ss.SaveAsFile("C:\\Users\\srrajale\\source\\repos\\HRMS-MINI PROJECT\\HRMS-MINI PROJECT\\SCREENSHOTS\\7-Award-NewAward.jpeg", ScreenshotImageFormat.Jpeg);
+
         corehrobj.addnewaward();
+        Thread.Sleep(2000);
+        screensSetup();
+        ss.SaveAsFile("C:\\Users\\srrajale\\source\\repos\\HRMS-MINI PROJECT\\HRMS-MINI PROJECT\\SCREENSHOTS\\8-AwardAdded.jpeg", ScreenshotImageFormat.Jpeg);
         extTest.Log(Status.Pass, "Award is added for an employee ");
     }
 
     //Test case 8 - Verify that the user can Search and view teh added award
     [Test, Order(8)]
-    public void TC8_CoreHRVIEW()
+    public void TC8_CoreHRViewAward()
     {
         extTest = Extreport.CreateTest("Search/View Award").Info("Core HR -> View and Search the added Award");
         corehrobj.ViewAddedAward();
+        Thread.Sleep(2000);
+        screensSetup();
+        ss.SaveAsFile("C:\\Users\\srrajale\\source\\repos\\HRMS-MINI PROJECT\\HRMS-MINI PROJECT\\SCREENSHOTS\\9-AwardViewed.jpeg", ScreenshotImageFormat.Jpeg);
+
         extTest.Log(Status.Pass, "Added award detail is viewed ");
     }
 
     //Test case 9 - Verify that the user can Delete the added award 
     [Test, Order(9)]
-    public void TC9_CoreHRDelete()
+    public void TC9_CoreHRDeleteAward()
     {
         extTest = Extreport.CreateTest("Delete Award").Info("Core HR -> Delete the added Award");
         //corehrobj.ViewAddedAward();
         corehrobj.DeleteAward();
+        Thread.Sleep(2000);
+        screensSetup();
+        ss.SaveAsFile("C:\\Users\\srrajale\\source\\repos\\HRMS-MINI PROJECT\\HRMS-MINI PROJECT\\SCREENSHOTS\\10-AwardDeleted.jpeg", ScreenshotImageFormat.Jpeg);
+
 
         Dashboardopen();
         Thread.Sleep(1000);
@@ -205,7 +220,7 @@ public class HRMS_MAIN : DriverSetup
 
     //Test case 10 - Verify that the user can logout from the HRMS site.
     [Test, Order(10)]
-    public void TC10_HRMSSiteLogout()
+    public void TC10_HRMSLogout()
     {
         extTest = Extreport.CreateTest("Logout HRMS").Info("Logout from the HRMS app");
         logout22 =new HRMS_LOGOUT(driver);

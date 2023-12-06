@@ -35,5 +35,21 @@ public class DashboardEmployee
         Thread.Sleep(3000);
 
     }
+    [FindsBy(How = How.XPath, Using = "//span[@id='select2-aj_company-container']")] IWebElement Companydrop;
+    [FindsBy(How = How.XPath, Using = "//li[text()='CRROTHRM']")] IWebElement Companydropvalue;
+    [FindsBy(How = How.XPath, Using = "//button[text()=' Get ']")] IWebElement getButton;
+
+    public void Reportwindowhandle()
+    {
+        Companydrop.Click();
+        Thread.Sleep(2000);
+
+        Companydropvalue.Click();
+        Thread.Sleep(2000);
+
+        getButton.Click();
+        Thread.Sleep(4000);
+
+    }
     
 }

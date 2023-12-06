@@ -17,6 +17,10 @@ public class DriverSetup
     public IWebDriver driver;
     public ExtentReports Extreport;
     public ExtentTest extTest;
+
+    public ITakesScreenshot Iss;
+    public Screenshot ss;
+
     public void  OpenBrowser()
     {
         driver = new ChromeDriver();
@@ -58,6 +62,22 @@ public class DriverSetup
         Extreport.Flush();
     }
 
+    public void screensSetup()
+    {
+        Iss = (ITakesScreenshot)driver;
+        ss = Iss.GetScreenshot();
+    }
     
+    public void EmployeeReportsChildWindow()
+    {        
+        List<string> child = driver.WindowHandles.ToList();
+
+        string ch = child[1];
+        driver.SwitchTo().Window(ch);
+    }
+    public void EmpReportBacktoParent()
+    {
+        driver.SwitchTo().Window(driver.WindowHandles[0]);
+    }
 }
 
