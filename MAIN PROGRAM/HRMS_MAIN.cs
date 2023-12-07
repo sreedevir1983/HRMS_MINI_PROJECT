@@ -22,11 +22,8 @@ public class HRMS_MAIN : DriverSetup
     public HRMS_LOGOUT logout22;
     public Staff_Export_Import StImpExp;
     public ProfileUpdate profupd;
-    public Tickets_Handling tickethandle;
+    
     public CoreHRMenu corehrobj;
-
-    //public ITakesScreenshot Iss;
-    //public Screenshot ss;
 
     public string EmployeeName;
 
@@ -208,6 +205,7 @@ public class HRMS_MAIN : DriverSetup
         //corehrobj.ViewAddedAward();
         corehrobj.DeleteAward();
         Thread.Sleep(2000);
+
         screensSetup();
         ss.SaveAsFile("C:\\Users\\srrajale\\source\\repos\\HRMS-MINI PROJECT\\HRMS-MINI PROJECT\\SCREENSHOTS\\10-AwardDeleted.jpeg", ScreenshotImageFormat.Jpeg);
 

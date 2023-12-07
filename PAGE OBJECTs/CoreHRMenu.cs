@@ -44,8 +44,9 @@ public class CoreHRMenu
                 AwardList.Add(AwardSheetRange.Cells[i, j].Value2.ToString());
             }
         }
-        //return AwardList;
+        
     }
+
     [FindsBy(How = How.XPath, Using = "//span[text()='Core HR']")] IWebElement LeftCoreHR;
     [FindsBy(How = How.XPath, Using = "//a[text()=' Awards ']")] IWebElement awardmenu;
     [FindsBy(How = How.XPath, Using = "//button[text()=' Add New']")] IWebElement addnewbutton;
@@ -149,11 +150,11 @@ public class CoreHRMenu
         awardsave.Click();
         Thread.Sleep(2000);
     }
+
     [FindsBy(How = How.XPath, Using = "//input[@type='search']")] IWebElement awardsearch;
     [FindsBy(How = How.XPath, Using = "//span[@class='fa fa-eye']")] IWebElement awardsview;
     [FindsBy(How = How.XPath, Using = "//button[text()='Close']")] IWebElement awardsclose;
-
-    //div[contains(text(),'Showing 0 to 0 of 0 entries')]
+        
     public void ViewAddedAward()
     {
         awardsearch.SendKeys(empname);
