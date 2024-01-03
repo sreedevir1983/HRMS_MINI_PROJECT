@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 public class DashboardEmployee
 {
     IWebDriver driver;
-    
+    public bool bool1;
     public DashboardEmployee(IWebDriver driver) 
     {
         PageFactory.InitElements(driver,this);
@@ -20,35 +20,45 @@ public class DashboardEmployee
         Thread.Sleep(1000);
         EmpDash.Click();
 
-        Thread.Sleep(3000);
     }
 
     [FindsBy(How = How.XPath, Using = "//button[text()=' Report ']")] IWebElement Ereport;
     [FindsBy(How = How.XPath, Using = "//a[text()='Employement Report']")] IWebElement drop1;
     public void OpenReport()
     {
-        Thread.Sleep(1000);
+        //Thread.Sleep(1000);
         Ereport.Click();
         
-        Thread.Sleep(2000);
+        //Thread.Sleep(2000);
         drop1.Click();
-        Thread.Sleep(3000);
+        //Thread.Sleep(3000);
 
     }
     [FindsBy(How = How.XPath, Using = "//span[@id='select2-aj_company-container']")] IWebElement Companydrop;
     [FindsBy(How = How.XPath, Using = "//li[text()='CRROTHRM']")] IWebElement Companydropvalue;
     [FindsBy(How = How.XPath, Using = "//button[text()=' Get ']")] IWebElement getButton;
+    [FindsBy(How = How.XPath, Using = "//li[text()='Employees Report']")] IWebElement EmpReportPage;
 
-    public void Reportwindowhandle()
+    public bool Reportwindowhandle()
     {
-        Companydrop.Click();
-        Thread.Sleep(2000);
+        if (EmpReportPage.Text== "Employees Report")
+        {
+            bool1 = true;
+            Companydrop.Click();
+            //Thread.Sleep(2000);
 
-        Companydropvalue.Click();
-        Thread.Sleep(2000);
+            Companydropvalue.Click();
+            //Thread.Sleep(2000);
 
-        getButton.Click();
-        Thread.Sleep(4000);
+            getButton.Click();
+            //Thread.Sleep(4000);
+
+        }
+        else 
+        {
+            bool1 = false;
+        }
+        return bool1;
 
     }
     

@@ -31,7 +31,7 @@ public class Staff_Export_Import
         Thread.Sleep(1000);
 
         ImportEmployee.Click();
-        Thread.Sleep(1000);
+        //Thread.Sleep(1000);
 
     }
     public void Uploadfile()
@@ -39,15 +39,15 @@ public class Staff_Export_Import
         string uploadfilepath = @"C:\Users\srrajale\source\repos\HRMS-MINI PROJECT\HRMS-MINI PROJECT\UTILITIES\Company  Demo HRMS.csv";
         uploadbutton.SendKeys(uploadfilepath);
 
-        Thread.Sleep(2000);
+        //Thread.Sleep(2000);
         savebutton.Click();
-        Thread.Sleep(2000);
+        //Thread.Sleep(2000);
     }
 
     public void Downloadfile()
     {
         downloadbutton.Click();
-        Thread.Sleep(2000);
+        //Thread.Sleep(2000);
     }
 
 }

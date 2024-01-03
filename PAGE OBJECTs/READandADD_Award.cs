@@ -13,18 +13,16 @@ using System.Text;
 using System.Threading.Tasks;
 using Excel = Microsoft.Office.Interop.Excel;
 
-public class CoreHRMenu
+public class READandADD_Award
 {
     public ArrayList AwardList;
     public int row, column;
     public IWebDriver driver;
     public string empname;
 
-    public string excelpath;
-
     public Apply_Waits waitOb;
 
-    public CoreHRMenu(IWebDriver driver)
+    public READandADD_Award(IWebDriver driver)
     {
         PageFactory.InitElements(driver, this);
     }
@@ -35,7 +33,7 @@ public class CoreHRMenu
 
     [FindsBy(How = How.XPath, Using = "//span[text()='Company']")] IWebElement companydrop;
     [FindsBy(How = How.XPath, Using = "//li[text()='CRROTHRM']")] IWebElement companydropvalue;
-    
+
     [FindsBy(How = How.XPath, Using = "//span[text()='Choose an Employee']")] IWebElement employeedrop;
     //[FindsBy(How = How.XPath, Using = "//li[text()=' John Smith']")] IWebElement employeedropvalue;
     [FindsBy(How = How.XPath, Using = "(//li[@class='select2-results__option'])[2]")] IWebElement employeedropvalue;
@@ -62,13 +60,22 @@ public class CoreHRMenu
     [FindsBy(How = How.XPath, Using = "//input[@name='asd']")] IWebElement awardFRT;
     [FindsBy(How = How.XPath, Using = "//button[text()=' Save']")] IWebElement awardsave;
 
+    public void CoreHRAward()
+    {
+        //Thread.Sleep(2000);
+        LeftCoreHR.Click();
+        //Thread.Sleep(2000);
+
+        awardmenu.Click();
+        //Thread.Sleep(2000);
+
+        addnewbutton.Click();
+        //Thread.Sleep(2000);
+    }
     public void AwardListRead()
     {
-        excelpath = System.Configuration.ConfigurationManager.AppSettings["AwardExcelFile"];
-
         Excel.Application AwardExcelapp = new Excel.Application();
-        //Excel.Workbook AwardWorkbook = AwardExcelapp.Workbooks.Open(@"C:\Users\srrajale\source\repos\HRMS-MINI PROJECT\HRMS-MINI PROJECT\UTILITIES\AwardsList.xlsx");
-        Excel.Workbook AwardWorkbook = AwardExcelapp.Workbooks.Open(excelpath);
+        Excel.Workbook AwardWorkbook = AwardExcelapp.Workbooks.Open(@"C:\Users\srrajale\source\repos\HRMS-MINI PROJECT\HRMS-MINI PROJECT\UTILITIES\AwardsList.xlsx");
         Excel._Worksheet AwardWorksheet = (Excel._Worksheet)AwardWorkbook.Sheets[1];
         Excel.Range AwardSheetRange = AwardWorksheet.UsedRange;
 
@@ -82,22 +89,11 @@ public class CoreHRMenu
             for (int j = 1; j <= column; j++)
             {
                 AwardList.Add(AwardSheetRange.Cells[i, j].Value2.ToString());
-            }
+
+            }          
+            
         }
-        
-    }
-                 
-    public void CoreHRAward()
-    {
-        //Thread.Sleep(2000);
-        LeftCoreHR.Click();
-        //Thread.Sleep(2000);
 
-        awardmenu.Click();
-        //Thread.Sleep(2000);
-
-        addnewbutton.Click();
-        //Thread.Sleep(2000);
     }
 
     public void Wait()
@@ -110,8 +106,6 @@ public class CoreHRMenu
     {
         companydrop.Click();
         companydropvalue.Click();
-        /*SelectElement compdropval = new SelectElement(companydrop);
-        compdropval.SelectByValue(Convert.ToString(AwardList[0]));*/
         Thread.Sleep(4000);
 
         employeedrop.Click();
@@ -120,7 +114,7 @@ public class CoreHRMenu
         //employeedrop.SendKeys(EmpName1);
 
         Console.WriteLine(empname);
-        employeedropvalue.Click();        
+        employeedropvalue.Click();
 
         //Thread.Sleep(2000);
 
@@ -132,7 +126,6 @@ public class CoreHRMenu
         awarddatepicker.Click();
         SelectElement awardY = new SelectElement(awarddateyear);
         awardY.SelectByValue("2023");
-        
         SelectElement awardM = new SelectElement(awarddatemonth);
         awardM.SelectByValue("11");
         awarddateday.Click();
@@ -140,7 +133,6 @@ public class CoreHRMenu
 
         awarddescription.SendKeys(Convert.ToString(AwardList[4]));
         //Thread.Sleep(2000);
-
         //dateyear
         awardmonthyear.Click();
         //Thread.Sleep(2000);
@@ -170,7 +162,7 @@ public class CoreHRMenu
     [FindsBy(How = How.XPath, Using = "//input[@type='search']")] IWebElement awardsearch;
     [FindsBy(How = How.XPath, Using = "//span[@class='fa fa-eye']")] IWebElement awardsview;
     [FindsBy(How = How.XPath, Using = "//button[text()='Close']")] IWebElement awardsclose;
-        
+
     public void ViewAddedAward()
     {
         awardsearch.SendKeys(empname);
@@ -181,7 +173,7 @@ public class CoreHRMenu
 
         awardsclose.Click();
         Thread.Sleep(4000);
-                
+
     }
 
     [FindsBy(How = How.XPath, Using = "//span[@class='fa fa-trash']")] IWebElement awardsdelete;
@@ -202,13 +194,13 @@ public class CoreHRMenu
         awardsearch.SendKeys(empname);
         Thread.Sleep(4000);
 
-        if (norecord.Displayed) 
+        if (norecord.Displayed)
         {
             Console.WriteLine("Delete Award successful!");
             //Assert.Pass();
             return true;
         }
-        else 
+        else
         {
             Console.WriteLine("Record still exists!");
             //Assert.Fail();

@@ -26,18 +26,18 @@ public class ProfileUpdate
     public void MyProfileUpdate()
     {
         profilePic.Click();
-        Thread.Sleep(1000);
+        //Thread.Sleep(1000);
 
         myProfile.Click();
-        Thread.Sleep(1000);
+        //Thread.Sleep(1000);
 
         contactnumber.Clear();
-        Thread.Sleep(2000);
+        //Thread.Sleep(2000);
         contactnumber.SendKeys("4567843201");
-        Thread.Sleep(1000);
+        //Thread.Sleep(1000);
 
         savebutton.Click();
-        Thread.Sleep(5000);
+       //Thread.Sleep(5000);
 
     }
 

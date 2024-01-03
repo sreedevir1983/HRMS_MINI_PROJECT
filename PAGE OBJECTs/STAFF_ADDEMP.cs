@@ -15,10 +15,13 @@ public class STAFF_ADDEMP : NewEmployeeExcelData
     IWebDriver driver;
     public string empName;
     int r, c;
+
+    public Apply_Waits waitOb;
     public STAFF_ADDEMP(IWebDriver driver) 
     {
         PageFactory.InitElements(driver,this);
     }
+    
 
     [FindsBy(How = How.XPath, Using = "//span[text()='Staff']")] IWebElement staff;
     [FindsBy(How = How.XPath, Using = "//a[text()=' Employees']")] IWebElement employee;
@@ -28,6 +31,8 @@ public class STAFF_ADDEMP : NewEmployeeExcelData
     [FindsBy(How = How.XPath, Using = "//input[@name='last_name']")] IWebElement lastname;
     [FindsBy(How = How.XPath, Using = "//span[@id='select2-aj_company-container']")] IWebElement Company;
     [FindsBy(How = How.XPath, Using = "//li[text()='CRROTHRM']")] IWebElement CompanyValue;
+
+
     [FindsBy(How = How.XPath, Using = "//span[text()='Location']")] IWebElement Location;
     [FindsBy(How = How.XPath, Using = "//li[text()='Chennai Branch']")] IWebElement LocationValue;
 
@@ -71,25 +76,33 @@ public class STAFF_ADDEMP : NewEmployeeExcelData
     [FindsBy(How = How.XPath, Using = "//input[@name='address']")] IWebElement address;
     [FindsBy(How = How.XPath, Using = "(//button[@name='hrsale_form'])[2]")] IWebElement savebutton;
 
+    public void Wait()
+    {
+        waitOb = new Apply_Waits();
+        var LocElement = "//span[text()='Location']";
+        waitOb.ExplicitWaitHandling(LocElement);
+    }
+
     public void StaffClick()
     {
-        Thread.Sleep(2000);
+        //Thread.Sleep(2000);
         staff.Click();
-        //staff.Click();
+        //new Actions(driver).DoubleClick(financeInvoiceNo).Perform();
+        staff.Click();
     }
 
     public void StaffEmployye()
     { 
-        Thread.Sleep(2000);
+        //Thread.Sleep(2000);
         employee.Click();
 
-        Thread.Sleep(1000);        
+        //Thread.Sleep(1000);        
     }
 
     public string AddNewEmployee() 
     {
         AddnewEmp.Click();
-        Thread.Sleep(3000);
+        //Thread.Sleep(3000);
       
         //NewEmpdata = new NewEmployeeExcelData();
         ArrayList NewEmplist = new ArrayList();
@@ -97,40 +110,43 @@ public class STAFF_ADDEMP : NewEmployeeExcelData
         NewEmplist = NewEmployeeRead();
 
         firstname.SendKeys(Convert.ToString(NewEmplist[0]));
-        Thread.Sleep(2000);
+        //Thread.Sleep(2000);
         lastname.SendKeys(Convert.ToString(NewEmplist[1]));
-        Thread.Sleep(2000);
+        //Thread.Sleep(2000);
 
         empName = Convert.ToString(NewEmplist[0]) +" "+ Convert.ToString(NewEmplist[1]);
         Console.WriteLine(empName);
 
         Company.Click();
+        //var selectElement = new SelectElement(Company);
+        //selectElement.SelectByText(Convert.ToString(NewEmplist[2]));
         //Company.SendKeys(Convert.ToString(NewEmplist[2]));
+        Thread.Sleep(3000);
         CompanyValue.Click();
-        Thread.Sleep(2000);
+        Thread.Sleep(3000);
 
         Location.Click();
         LocationValue.Click();
-        Thread.Sleep(2000);
+        //Thread.Sleep(2000);
 
         username.SendKeys(Convert.ToString(NewEmplist[4]));
-        Thread.Sleep(2000);
+        //Thread.Sleep(2000);
         email.SendKeys(Convert.ToString(NewEmplist[5]));
-            Thread.Sleep(2000);
+        //    Thread.Sleep(2000);
 
         //Date of Birth
         dateofbirth.Click();
 
         SelectElement dobY = new SelectElement(DOBYear);
         dobY.SelectByValue("2013");
-        Thread.Sleep(1000);
+        //Thread.Sleep(1000);
 
         SelectElement dobM = new SelectElement(DOBMonth);
         dobM.SelectByValue("5");
-        Thread.Sleep(1000);
+        //Thread.Sleep(1000);
 
         DOBDay.Click();
-        Thread.Sleep(1000);//
+        //Thread.Sleep(1000);//
 
         ContactNum.SendKeys(Convert.ToString(NewEmplist[7]));
         EMPID.SendKeys(Convert.ToString(NewEmplist[8]));
@@ -140,14 +156,14 @@ public class STAFF_ADDEMP : NewEmployeeExcelData
 
         SelectElement dojY = new SelectElement(DOJYear);
         dojY.SelectByValue("2023");
-        Thread.Sleep(1000);
+        //Thread.Sleep(1000);
 
         SelectElement dojM = new SelectElement(DOJMonth);
         dojM.SelectByValue("6");
-        Thread.Sleep(1000);
+        //Thread.Sleep(1000);
 
         DOJDay.Click();
-        Thread.Sleep(1000);
+        //Thread.Sleep(1000);
         //
         Department.Click();
         DepartmentValue.Click();
@@ -155,142 +171,41 @@ public class STAFF_ADDEMP : NewEmployeeExcelData
 
         Designation.Click();
         DesignationValue.Click();
-        Thread.Sleep(1000);
+        //Thread.Sleep(1000);
 
         Gender.Click();
-        Thread.Sleep(1000);
+        //Thread.Sleep(1000);
         female.Click();
-        Thread.Sleep(1000);
+        //Thread.Sleep(1000);
 
         OfficeShift.Click();
         MorningShift.Click();
-        Thread.Sleep(1000);
+        //Thread.Sleep(1000);
 
         password.SendKeys(Convert.ToString(NewEmplist[14])); 
         confirmpassword.SendKeys(Convert.ToString(NewEmplist[15])); 
 
         Roledrop.Click();
         roledrop1.Click();
-        Thread.Sleep(1000);
+        //Thread.Sleep(1000);
 
         LeaveCatDrop.Click();
         LeaveCatedrop1.Click();
-        Thread.Sleep(1000);
+        //Thread.Sleep(1000);
 
         LeaveCatDrop.Click();
         LeaveCatedrop2.Click();
-        Thread.Sleep(1000);
+        //Thread.Sleep(1000);
 
         address.SendKeys(Convert.ToString(NewEmplist[18]));
-        Thread.Sleep(1000);
+       // Thread.Sleep(1000);
 
         savebutton.Click();
-        Thread.Sleep(10000);
+        //Thread.Sleep(10000);
 
-        return (empName);
-     /*   firstname.SendKeys("Sreedevi");
-        lastname.SendKeys("R");
-        Company.Click();
-        CompanyValue.Click();
-
-        username.SendKeys("sreedevir");
-        email.SendKeys("sreetest@gmail.com");
-        Thread.Sleep(2000);
-        //Date of Birth
-        dateofbirth.Click();
-
-        SelectElement dobY = new SelectElement(DOBYear);
-        dobY.SelectByValue("2013");
-        Thread.Sleep(1000);
-
-        SelectElement dobM = new SelectElement(DOBMonth);
-        dobM.SelectByValue("5");
-        Thread.Sleep(1000);
-
-        DOBDay.Click();
-        Thread.Sleep(1000);
-        
-
-        ContactNum.SendKeys("9898989898");
-        EMPID.SendKeys("sree2023");
-
-        //Date of joining
-        dateofjoining.Click();
-
-        SelectElement dojY = new SelectElement(DOJYear);
-        dojY.SelectByValue("2013");
-        Thread.Sleep(1000);
-
-        SelectElement dojM = new SelectElement(DOJMonth);
-        dojM.SelectByValue("5");
-        Thread.Sleep(1000);
-
-        DOJDay.Click();
-        Thread.Sleep(1000);
-        //
-        Gender.Click();
-        female.Click();
-
-        OfficeShift.Click();
-        MorningShift.Click();
-        Thread.Sleep(1000);
-
-        password.SendKeys("Sreepass@123");
-        confirmpassword.SendKeys("Sreepass@123");
-
-        Roledrop.Click();
-        roledrop1.Click();
-        Thread.Sleep(1000);
-
-        LeaveCatDrop.Click();
-        LeaveCatedrop1.Click();
-
-        address.SendKeys("street1, Location1, District1, State1, 695555");
-        Thread.Sleep(1000);
-     */
+        return (empName);     
      
     }
-
-
-    /*public void AddNewEmployee() 
-    {
-        AddnewEmp.Click();
-        Thread.Sleep(3000);
-
-        firstname.SendKeys("Ameyaa");
-        lastname.SendKeys("AS");
-
-        Thread.Sleep(1000);
-        Company.Click();
-        Thread.Sleep(1000);
-        CompanyValue.Click();
-
-        //Date of Birth
-        SelectElement dobY = new SelectElement(DOBYear);
-        dobY.SelectByValue("2013");
-        Thread.Sleep(1000);
-
-        SelectElement dobM = new SelectElement(DOBMonth);
-        dobM.SelectByValue("5");
-        Thread.Sleep(1000);
-
-        DOBDay.Click();
-        Thread.Sleep(1000);
-
-        //Date of joining
-        SelectElement dojY = new SelectElement(DOJYear);
-        dojY.SelectByValue("2013");
-        Thread.Sleep(1000);
-
-        SelectElement dojM = new SelectElement(DOJMonth);
-        dojM.SelectByValue("5");
-        Thread.Sleep(1000);
-
-        DOJDay.Click();
-        Thread.Sleep(1000);
-    
-
-    }*/
 
 }
 

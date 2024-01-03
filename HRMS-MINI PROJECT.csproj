@@ -47,7 +47,10 @@
 
   <ItemGroup>
     <None Include="UnitTest1.cs" />
-    <None Include="UTILITIES\ALERTS_HANDLE.cs" />
   </ItemGroup>
 
+	<Target Name="CopyCustomContent" AfterTargets="AfterBuild">
+		<Copy SourceFiles="HRMS.config" DestinationFiles="$(OutDir)\testhost.dll.config" />
+		<Copy SourceFiles="HRMS.config" DestinationFiles="$(OutDir)\testhost.x86.dll.config" />
+	</Target>
 </Project>

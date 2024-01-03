@@ -18,7 +18,7 @@ public class HRMS_LOGOUT
 
     public void HRMSLogout()
     {
-        Thread.Sleep(1000);
+        Thread.Sleep(3000);
         logout.Click(); 
 
     }
